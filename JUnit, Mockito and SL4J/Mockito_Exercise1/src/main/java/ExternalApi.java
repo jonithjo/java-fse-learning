@@ -1,3 +1,3 @@
-public interface ExternalApi{
-    String getdata();
+public interface ExternalApi {
+    String getData();
 }
