@@ -1,0 +1,17 @@
+<div style="padding: 10px;">
+  <h2>ECE Domain Modules Portal</h2>
+  
+  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <!-- Angular Modern Optimized Template Loop Loop Block -->
+    @for (item of courses; track item.id) {
+      <app-course-card 
+        [course]="item" 
+        (enrollRequested)="onEnroll($event)">
+      </app-course-card>
+    }
+  </div>
+
+  <div style="margin-top: 20px; padding: 10px; background-color: #e2f0d9; border-radius: 4px; display: inline-block;">
+    <h3 style="margin: 0; color: #385723;">Selected course ID: {{ selectedCourseId }}</h3>
+  </div>
+</div>

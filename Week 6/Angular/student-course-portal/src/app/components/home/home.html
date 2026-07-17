@@ -1,0 +1,28 @@
+<div style="border: 2px dashed #bbb; padding: 20px; border-radius: 8px; background-color: #fafafa;">
+  <!-- 1. String Interpolation -->
+  <h1>{{ portalName }}</h1>
+
+  <!-- 2 & 3. Property Binding & Event Binding -->
+  <button [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
+  
+  <!-- Angular Modern Control Flow Block -->
+  @if (message) {
+    <p style="color: green; font-weight: bold;">{{ message }}</p>
+  }
+
+  <br><br>
+
+  <!-- 4. Two-Way Data Binding -->
+  <div style="margin-top: 10px;">
+    <label for="search">Search for a course: </label>
+    <input id="search" type="text" [(ngModel)]="searchTerm" placeholder="Start typing..." />
+    <p>Searching for: <strong>{{ searchTerm }}</strong></p>
+  </div>
+
+  <!-- 5. Code Comment Requirement Explained -->
+  <p style="font-size: 12px; color: #666; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+    <strong>Binding Rule Check:</strong> 
+    <code>[property]</code> sends state data down from the component logic directly to the DOM. 
+    <code>[(ngModel)]</code> sets up continuous sync so that changes in the input element UI write back to the component state instantly while also listening for manual state changes.
+  </p>
+</div>
