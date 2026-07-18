@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { HomeComponent } from './components/home/home';
-import { CourseListComponent } from './components/course-list/course-list';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HomeComponent, CourseListComponent],
+  imports: [
+    RouterOutlet
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
-  title = 'student-course-portal';
+export class App {
+
 }

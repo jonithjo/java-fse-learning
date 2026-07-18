@@ -1,9 +1,75 @@
-<div style="border: 1px solid #0056b3; padding: 15px; margin: 10px; border-radius: 6px; background-color: #ebf4ff; width: 220px; display: inline-block; vertical-align: top;">
-  <h3 style="margin-top: 0; color: #0056b3;">{{ course.name }}</h3>
-  <p style="margin: 5px 0;"><strong>Code:</strong> {{ course.code }}</p>
-  <p style="margin: 5px 0;"><strong>Credits:</strong> {{ course.credits }}</p>
-  
-  <button (click)="onEnrollBtnClick()" style="background-color: #0056b3; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; width: 100%;">
-    Enroll
-  </button>
+<div
+class="card"
+
+appHighlight="lightblue"
+
+[ngClass]="cardClasses"
+
+[ngStyle]="{'border-left':'8px solid '+borderColor}">
+
+<h2>{{course.name}}</h2>
+
+<p>
+<strong>Trainer:</strong>
+{{course.trainer}}
+</p>
+
+<p>
+<strong>Credits:</strong>
+{{course.credits | creditLabel}}
+</p>
+
+<p>
+<strong>Enrolled:</strong>
+
+{{course.enrolled ? 'Yes' : 'No'}}
+
+</p>
+
+<div [ngSwitch]="course.gradeStatus">
+
+<span
+*ngSwitchCase="'passed'"
+class="badge passed">
+
+Passed
+
+</span>
+
+<span
+*ngSwitchCase="'failed'"
+class="badge failed">
+
+Failed
+
+</span>
+
+<span
+*ngSwitchDefault
+class="badge pending">
+
+Pending
+
+</span>
+
+</div>
+
+<button (click)="toggleDetails()">
+
+{{isExpanded ? 'Hide Details' : 'Show Details'}}
+
+</button>
+
+<div *ngIf="isExpanded">
+
+<hr>
+
+<p>
+
+This is additional course information.
+
+</p>
+
+</div>
+
 </div>

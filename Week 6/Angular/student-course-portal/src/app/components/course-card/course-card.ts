@@ -1,42 +1,51 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-
-// Strong type declaration for our expected course data structure
-export interface Course {
-  id: number;
-  name: string;
-  code: string;
-  credits: number;
-}
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Course } from '../../models/course.model';
+import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
+import { HighlightDirective } from '../../directives/highlight';
 
 @Component({
   selector: 'app-course-card',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    CreditLabelPipe,
+    HighlightDirective
+  ],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css'
 })
-export class CourseCardComponent implements OnChanges {
-  // Task 3: Typed input boundary channel
-  @Input({ required: true }) course!: Course;
+export class CourseCardComponent {
 
-  // Task 3: Strongly typed Output custom event transmitter
-  @Output() enrollRequested = new EventEmitter<number>();
+  @Input() course!: Course;
 
-  // Task 2: ngOnChanges log analyzer
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['course']) {
-      const prev = changes['course'].previousValue;
-      const current = changes['course'].currentValue;
-      
-      console.log(`CourseCard [ID: ${current?.id}] Input Shift Detected:`, {
-        previousValue: prev,
-        currentValue: current
-      });
+  isExpanded = false;
+
+  toggleDetails() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  // Keeps the template clean instead of writing
+  // long ngClass conditions directly in HTML.
+  get cardClasses() {
+    return {
+      'card--enrolled': this.course.enrolled,
+      'card--full': (this.course.credits ?? 0) >= 4,
+      'expanded': this.isExpanded
+    };
+  }
+
+  get borderColor() {
+    switch (this.course.gradeStatus) {
+      case 'passed':
+        return 'green';
+
+      case 'failed':
+        return 'red';
+
+      default:
+        return 'gray';
     }
   }
 
-  // Intercepting UI click to broadcast to parent listener
-  onEnrollBtnClick(): void {
-    this.enrollRequested.emit(this.course.id);
-  }
 }
