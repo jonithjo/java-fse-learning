@@ -1,0 +1,169 @@
+<div class="container">
+
+
+<h1>
+Reactive Enrollment Form
+</h1>
+
+
+<form 
+[formGroup]="enrollForm"
+(ngSubmit)="submitForm()">
+
+
+
+<label>
+Student Name
+</label>
+
+<input 
+type="text"
+formControlName="studentName">
+
+
+
+<label>
+Student Email
+</label>
+
+<input
+type="email"
+formControlName="studentEmail">
+
+
+<div class="error"
+*ngIf="
+enrollForm.get('studentEmail')?.errors?.['emailTaken']
+">
+
+Email already registered
+
+</div>
+
+
+
+<label>
+Course ID
+</label>
+
+
+<input
+type="text"
+formControlName="courseId">
+
+
+<div class="error"
+*ngIf="
+enrollForm.get('courseId')?.errors?.['noCourseCode']
+">
+
+Course code starting with XX is not allowed.
+
+</div>
+
+
+
+
+<label>
+Semester
+</label>
+
+
+<select formControlName="preferredSemester">
+
+<option>
+Odd
+</option>
+
+<option>
+Even
+</option>
+
+</select>
+
+
+
+
+<label class="check">
+
+
+<input
+type="checkbox"
+formControlName="agreeToTerms">
+
+Agree Terms
+
+
+</label>
+
+
+
+
+<button
+type="submit"
+[disabled]="enrollForm.invalid">
+
+Submit
+
+</button>
+
+
+<button
+type="button"
+class="cancel"
+(click)="enrollForm.reset()">
+
+Cancel
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+<h2>
+Additional Courses
+</h2>
+
+
+
+<div
+class="course"
+*ngFor="
+let ctrl of additionalCourses.controls;
+let i=index
+">
+
+
+<input
+[formControl]="ctrl">
+
+
+<button
+type="button"
+(click)="removeCourse(i)">
+
+Remove
+
+</button>
+
+
+</div>
+
+
+
+
+<button
+type="button"
+(click)="addCourse()">
+
+Add Another Course
+
+</button>
+
+
+</div>
